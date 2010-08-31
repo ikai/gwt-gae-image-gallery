@@ -19,6 +19,9 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFactory;
+import com.google.appengine.api.users.User;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import com.ikai.photosharing.shared.UploadedImage;
 
 @SuppressWarnings("serial")
@@ -40,10 +43,16 @@ public class UploadServlet extends HttpServlet {
 
         	ImagesService imagesService = ImagesServiceFactory.getImagesService();
         	String imageUrl = imagesService.getServingUrl(blobKey);
+
+        	UserService userService = UserServiceFactory.getUserService();
+            // TODO: Add a better check for whether the user is logged in or not
+        	// Don't even let the user upload or get here
+        	User user = userService.getCurrentUser();
         	
         	Entity uploadedImage = new Entity("UploadedImage");
         	uploadedImage.setProperty("blobKey", blobKey);
         	uploadedImage.setProperty(UploadedImage.CREATED_AT, new Date());
+        	uploadedImage.setProperty(UploadedImage.OWNER_ID, user.getUserId());
         	
         	// Highly unlikely we'll ever search on this property
         	uploadedImage.setUnindexedProperty(UploadedImage.SERVING_URL, imageUrl);

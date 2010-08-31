@@ -8,6 +8,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.ikai.photosharing.client.UserImageService;
 import com.ikai.photosharing.shared.UploadedImage;
 
+@SuppressWarnings("serial")
 public class UserImageServiceImpl extends RemoteServiceServlet implements
 		UserImageService {
 

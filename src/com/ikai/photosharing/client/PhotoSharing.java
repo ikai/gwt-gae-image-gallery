@@ -21,7 +21,7 @@ public class PhotoSharing implements EntryPoint {
 	private VerticalPanel loginPanel = new VerticalPanel();
 	private Label loginLabel = new Label("Sign in to upload images!");
 	private Anchor signInLink = new Anchor("Sign In");
-	
+
 	private PhotoGallery galleryWidget;
 	private PhotoShare uploadWidget;
 
