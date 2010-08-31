@@ -3,11 +3,17 @@ package com.ikai.photosharing.client;
 import java.util.List;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.MouseOutEvent;
+import com.google.gwt.event.dom.client.MouseOutHandler;
+import com.google.gwt.event.dom.client.MouseOverEvent;
+import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.DecoratedPopupPanel;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Widget;
 import com.ikai.photosharing.shared.UploadedImage;
@@ -36,10 +42,37 @@ public class PhotoGallery extends Composite {
 			public void onSuccess(List<UploadedImage> images) {
 				int currentColumn = 0;
 				int currentRow = 0;
-				for(UploadedImage image : images) {
+				for(final UploadedImage image : images) {
 					
 					Image imageWidget = new Image();
 					imageWidget.setUrl(image.getServingUrl() + "=s200");
+				    final DecoratedPopupPanel simplePopup = new DecoratedPopupPanel(true);
+					
+					imageWidget.addMouseOverHandler(new MouseOverHandler() {
+						
+						@Override
+						public void onMouseOver(MouseOverEvent event) {
+				            Widget source = (Widget) event.getSource();
+				            int left = source.getAbsoluteLeft() + 10;
+				            int top = source.getAbsoluteTop() + source.getOffsetHeight() + 10;
+				            
+				            
+						    simplePopup.setWidth("150px");
+						    simplePopup.setWidget(new HTML(
+						        "Uploaded: " + image.getCreatedAt()));
+						    simplePopup.show();
+						    simplePopup.setPopupPosition(left, top);
+						}
+					});
+					
+					imageWidget.addMouseOutHandler(new MouseOutHandler() {
+						
+						@Override
+						public void onMouseOut(MouseOutEvent event) {
+							simplePopup.hide();
+						}
+					});
+					
 					galleryTable.setWidget(currentRow, currentColumn, imageWidget);
 					
 					currentColumn++;
