@@ -37,7 +37,7 @@ public class PhotoSharing implements EntryPoint {
 					public void onSuccess(LoginInfo result) {
 						loginInfo = result;
 						if (loginInfo.isLoggedIn()) {
-							uploadWidget = new PhotoShare();
+							uploadWidget = new PhotoShare(galleryWidget);
 							RootPanel.get("photoSharing").add(uploadWidget);
 						} else {
 							loadLogin();

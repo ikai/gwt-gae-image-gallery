@@ -39,11 +39,16 @@ public class PhotoGallery extends Composite {
 	public PhotoGallery() {
 		initWidget(uiBinder.createAndBindUi(this));
 
+		refreshGallery();
+	}
+
+	public void refreshGallery() {
 		userImageService
 				.getRecentlyUploaded(new AsyncCallback<List<UploadedImage>>() {
 
 					@Override
 					public void onSuccess(List<UploadedImage> images) {
+						
 						int currentColumn = 0;
 						int currentRow = 0;
 						for (final UploadedImage image : images) {
@@ -99,19 +104,16 @@ public class PhotoGallery extends Composite {
 				simplePopup.hide();
 			}
 		});
-		
+
 		imageWidget.addClickHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent event) {
 				Image fullSizeImage = new Image();
-				
-				fullSizeImage.setUrl(image
-						.getServingUrl());
 
+				fullSizeImage.setUrl(image.getServingUrl());
 
-				final PopupPanel imagePopup = new PopupPanel(
-						true);
+				final PopupPanel imagePopup = new PopupPanel(true);
 				imagePopup.setAnimationEnabled(true);
 				imagePopup.setWidget(fullSizeImage);
 				imagePopup.setGlassEnabled(true);
@@ -120,7 +122,7 @@ public class PhotoGallery extends Composite {
 				imagePopup.center();
 			}
 		});
-		
+
 		return imageWidget;
 	}
 

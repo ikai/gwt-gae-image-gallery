@@ -37,10 +37,13 @@ public class PhotoShare extends Composite {
 
 	@UiField
 	Image uploadedImage;
+	
+	PhotoGallery gallery;
 
-	public PhotoShare() {
+	public PhotoShare(final PhotoGallery gallery) {
 		initWidget(uiBinder.createAndBindUi(this));
 
+		this.gallery = gallery;
 		uploadButton.setText("Upload");
 		uploadButton.setText("Loading...");
 		uploadButton.setEnabled(false);
@@ -72,7 +75,7 @@ public class PhotoShare extends Composite {
 									public void onSuccess(UploadedImage result) {
 										uploadedImage.setUrl(result
 												.getServingUrl());
-
+										gallery.refreshGallery();										
 										// TODO: Add something here that says,
 										// hey, upload succeeded
 
