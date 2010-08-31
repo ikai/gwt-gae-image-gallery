@@ -8,6 +8,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Widget;
 import com.ikai.photosharing.shared.UploadedImage;
 
@@ -36,7 +37,10 @@ public class PhotoGallery extends Composite {
 				int currentColumn = 0;
 				int currentRow = 0;
 				for(UploadedImage image : images) {
-					galleryTable.setText(currentRow, currentColumn, "Some text here");
+					
+					Image imageWidget = new Image();
+					imageWidget.setUrl(image.getServingUrl() + "=s200");
+					galleryTable.setWidget(currentRow, currentColumn, imageWidget);
 					
 					currentColumn++;
 					if(currentColumn >= GALLERY_WIDTH) {
