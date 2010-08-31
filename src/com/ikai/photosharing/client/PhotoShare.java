@@ -13,7 +13,6 @@ import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteEvent;
 import com.ikai.photosharing.shared.UploadedImage;
@@ -54,44 +53,45 @@ public class PhotoShare extends Composite {
 
 		startNewBlobstoreSession();
 
-
-		
 		uploadForm
 				.addSubmitCompleteHandler(new FormPanel.SubmitCompleteHandler() {
 
 					@Override
 					public void onSubmitComplete(SubmitCompleteEvent event) {
-//						Window.alert(event.getResults());
 						uploadForm.reset();
 						startNewBlobstoreSession();
-						
+
 						String key = event.getResults();
-						
-						userImageService.get(key, new AsyncCallback<UploadedImage>() {
 
-							@Override
-							public void onFailure(Throwable caught) {
-								// TODO Auto-generated method stub
-								
-							}
+						userImageService.get(key,
+								new AsyncCallback<UploadedImage>() {
 
-							@Override
-							public void onSuccess(UploadedImage result) {
-								uploadedImage.setUrl(result.getServingUrl());
-								
-								
-							    final PopupPanel imagePopup = new PopupPanel(true);
-							    imagePopup.setAnimationEnabled(true);
-							    imagePopup.setWidget(uploadedImage);
-							    imagePopup.setGlassEnabled(true);
-							    imagePopup.setAutoHideEnabled(true);
+									@Override
+									public void onFailure(Throwable caught) {
+										// TODO Auto-generated method stub
 
-							    imagePopup.center();
-							    
-								
-							}
-						});
-						
+									}
+
+									@Override
+									public void onSuccess(UploadedImage result) {
+										uploadedImage.setUrl(result
+												.getServingUrl());
+
+										// TODO: Add something here that says,
+										// hey, upload succeeded
+
+										final PopupPanel imagePopup = new PopupPanel(
+												true);
+										imagePopup.setAnimationEnabled(true);
+										imagePopup.setWidget(uploadedImage);
+										imagePopup.setGlassEnabled(true);
+										imagePopup.setAutoHideEnabled(true);
+
+										imagePopup.center();
+
+									}
+								});
+
 					}
 				});
 	}

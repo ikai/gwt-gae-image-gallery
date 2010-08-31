@@ -1,5 +1,7 @@
 package com.ikai.photosharing.server;
 
+import java.util.List;
+
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -21,6 +23,13 @@ public class UserImageServiceImpl extends RemoteServiceServlet implements
 		UploadedImageDao dao = new UploadedImageDao();
 		UploadedImage image = dao.get(key);
 		return image;
+	}
+
+	@Override
+	public List<UploadedImage> getRecentlyUploaded() {
+		UploadedImageDao dao = new UploadedImageDao();
+		List<UploadedImage> images = dao.getRecent(); 
+		return images;
 	}
 
 }

@@ -15,7 +15,7 @@ public class PhotoSharing implements EntryPoint {
 	 */
 	public void onModuleLoad() {
 		RootPanel.get("photoSharing").add(new PhotoShare());
-
+		RootPanel.get("gallery").add(new PhotoGallery());
 
 	}
 }
