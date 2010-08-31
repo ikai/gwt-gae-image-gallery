@@ -34,9 +34,6 @@ public class PhotoShare extends Composite {
 	FormPanel uploadForm;
 
 	@UiField
-	Label uploadLabel;
-
-	@UiField
 	FileUpload uploadField;
 
 	@UiField
@@ -101,8 +98,6 @@ public class PhotoShare extends Composite {
 
 			@Override
 			public void onSuccess(String result) {
-				uploadLabel.setText("Upload target: " + result);
-
 				uploadForm.setAction(result);
 				uploadForm.setEncoding(FormPanel.ENCODING_MULTIPART);
 				uploadForm.setMethod(FormPanel.METHOD_POST);

@@ -13,9 +13,6 @@
 			<g:FileUpload ui:field="uploadField"></g:FileUpload>
 			<g:Button ui:field="uploadButton"></g:Button>
             <g:Image ui:field="uploadedImage"></g:Image>			
-			<g:Label ui:field="uploadLabel"></g:Label>
-
-			
 		</g:HTMLPanel>
 
 	</g:FormPanel>
