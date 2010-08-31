@@ -16,6 +16,12 @@
 		<servlet-class>com.ikai.photosharing.server.UploadServlet</servlet-class>
 	</servlet>
 
+    <servlet>
+        <servlet-name>loginServlet</servlet-name>
+        <servlet-class>com.ikai.photosharing.server.LoginServiceImpl</servlet-class>
+    </servlet>
+
+
 	<servlet-mapping>
 		<servlet-name>userImageServlet</servlet-name>
 		<url-pattern>/photosharing/images</url-pattern>
@@ -24,6 +30,11 @@
 	<servlet-mapping>
 	   <servlet-name>uploadServlet</servlet-name>
 	   <url-pattern>/upload</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+	   <servlet-name>loginServlet</servlet-name>
+	   <url-pattern>/photosharing/login</url-pattern>
 	</servlet-mapping>
 
 	<!-- Default page to serve -->
