@@ -13,7 +13,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  */
 public class PhotoSharing implements EntryPoint {
 
-	// Login code shamelessly stoleh from:
+	// Login code shamelessly stolen from:
 	// http://code.google.com/webtoolkit/doc/latest/tutorial/appengine.html
 	LoginServiceAsync loginService = GWT.create(LoginService.class);
 	private LoginInfo loginInfo = null;
