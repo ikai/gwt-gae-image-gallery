@@ -54,6 +54,8 @@ public class UploadedImageDao {
 		image.setCreatedAt((Date) result.getProperty(UploadedImage.CREATED_AT));
 		image.setServingUrl((String) result
 				.getProperty(UploadedImage.SERVING_URL));
+		
+		image.setOwnerId((String) result.getProperty(UploadedImage.OWNER_ID));
 
 		if (image.getKey() == null) {
 			String encodedKey = KeyFactory.keyToString(result.getKey());

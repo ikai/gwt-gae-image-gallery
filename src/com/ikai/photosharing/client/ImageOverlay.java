@@ -38,10 +38,18 @@ public class ImageOverlay extends Composite {
 		this.loginInfo = loginInfo;
 		
 		initWidget(uiBinder.createAndBindUi(this));
-		deleteButton.setText("Delete image");
 		
 		image.setUrl(uploadedImage.getServingUrl());
 		timestamp.setText("Created at:" + uploadedImage.getCreatedAt());
+		
+		
+		if(loginInfo != null && (loginInfo.getId().equals(uploadedImage.getOwnerId()))) {
+			deleteButton.setText("Delete image");
+			deleteButton.setVisible(true);
+		} else {
+			deleteButton.setVisible(false);
+		}
+		
 	}
 
 	@UiHandler("deleteButton")
