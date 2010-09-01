@@ -42,7 +42,7 @@ public class UserImageServiceImpl extends RemoteServiceServlet implements
 		User user = userService.getCurrentUser();
 		UploadedImageDao dao = new UploadedImageDao();
 		UploadedImage image = dao.get(key);
-		if(image.getOwnerId() == user.getUserId()) {
+		if(image.getOwnerId().equals(user.getUserId())) {
 			dao.delete(key);
 		}
 	}
