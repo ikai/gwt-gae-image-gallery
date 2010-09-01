@@ -1,4 +1,4 @@
-package com.ikai.photosharing.client;
+package com.ikai.photosharing.client.widgets;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.ikai.photosharing.client.services.UserImageService;
 import com.ikai.photosharing.client.services.UserImageServiceAsync;
+import com.ikai.photosharing.shared.LoginInfo;
 import com.ikai.photosharing.shared.UploadedImage;
 
 public class ImageOverlay extends Composite {

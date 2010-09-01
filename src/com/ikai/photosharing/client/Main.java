@@ -9,6 +9,9 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.ikai.photosharing.client.services.LoginService;
 import com.ikai.photosharing.client.services.LoginServiceAsync;
+import com.ikai.photosharing.client.widgets.PhotoGallery;
+import com.ikai.photosharing.client.widgets.PhotoShare;
+import com.ikai.photosharing.shared.LoginInfo;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.

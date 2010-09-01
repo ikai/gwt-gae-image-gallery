@@ -4,8 +4,8 @@ import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-import com.ikai.photosharing.client.LoginInfo;
 import com.ikai.photosharing.client.services.LoginService;
+import com.ikai.photosharing.shared.LoginInfo;
 
 @SuppressWarnings("serial")
 public class LoginServiceImpl extends RemoteServiceServlet implements

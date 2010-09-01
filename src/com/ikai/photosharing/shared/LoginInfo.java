@@ -1,4 +1,4 @@
-package com.ikai.photosharing.client;
+package com.ikai.photosharing.shared;
 
 import java.io.Serializable;
 
