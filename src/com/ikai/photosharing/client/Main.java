@@ -13,7 +13,7 @@ import com.ikai.photosharing.client.services.LoginServiceAsync;
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
-public class PhotoSharing implements EntryPoint {
+public class Main implements EntryPoint {
 
 	// Login code shamelessly stolen from:
 	// http://code.google.com/webtoolkit/doc/latest/tutorial/appengine.html

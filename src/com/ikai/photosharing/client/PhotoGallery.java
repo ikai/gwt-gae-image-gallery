@@ -38,9 +38,9 @@ public class PhotoGallery extends Composite {
 	@UiField
 	FlexTable galleryTable;
 	
-	PhotoSharing parent;
+	Main parent;
 	
-	public PhotoGallery(PhotoSharing parent) {
+	public PhotoGallery(Main parent) {
 		this.parent = parent;
 		
 		initWidget(uiBinder.createAndBindUi(this));
