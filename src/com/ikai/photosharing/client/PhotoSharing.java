@@ -26,7 +26,7 @@ public class PhotoSharing implements EntryPoint {
 	private PhotoShare uploadWidget;
 
 	public void onModuleLoad() {
-		galleryWidget = new PhotoGallery();
+		galleryWidget = new PhotoGallery(this);
 
 		RootPanel.get("gallery").add(galleryWidget);
 
@@ -37,7 +37,7 @@ public class PhotoSharing implements EntryPoint {
 					public void onSuccess(LoginInfo result) {
 						loginInfo = result;
 						if (loginInfo.isLoggedIn()) {
-							uploadWidget = new PhotoShare(galleryWidget);
+							uploadWidget = new PhotoShare(galleryWidget, result);
 							RootPanel.get("photoSharing").add(uploadWidget);
 						} else {
 							loadLogin();
@@ -62,4 +62,9 @@ public class PhotoSharing implements EntryPoint {
 		loginPanel.add(signInLink);
 		RootPanel.get("photoSharing").add(loginPanel);
 	}
+
+	public LoginInfo getLoginInfo() {
+		return loginInfo;
+	}
+	
 }

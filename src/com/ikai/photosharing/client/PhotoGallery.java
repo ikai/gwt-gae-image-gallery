@@ -35,10 +35,13 @@ public class PhotoGallery extends Composite {
 
 	@UiField
 	FlexTable galleryTable;
-
-	public PhotoGallery() {
+	
+	PhotoSharing parent;
+	
+	public PhotoGallery(PhotoSharing parent) {
+		this.parent = parent;
+		
 		initWidget(uiBinder.createAndBindUi(this));
-
 		refreshGallery();
 	}
 
@@ -109,13 +112,11 @@ public class PhotoGallery extends Composite {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				Image fullSizeImage = new Image();
-
-				fullSizeImage.setUrl(image.getServingUrl());
-
+				ImageOverlay imageOverlay = new ImageOverlay(image, parent.getLoginInfo());
+				
 				final PopupPanel imagePopup = new PopupPanel(true);
 				imagePopup.setAnimationEnabled(true);
-				imagePopup.setWidget(fullSizeImage);
+				imagePopup.setWidget(imageOverlay);
 				imagePopup.setGlassEnabled(true);
 				imagePopup.setAutoHideEnabled(true);
 

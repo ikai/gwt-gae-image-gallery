@@ -37,10 +37,13 @@ public class PhotoShare extends Composite {
 
 	@UiField
 	Image uploadedImage;
-	
+
+	LoginInfo loginInfo;
 	PhotoGallery gallery;
 
-	public PhotoShare(final PhotoGallery gallery) {
+	public PhotoShare(final PhotoGallery gallery, final LoginInfo loginInfo) {
+		this.loginInfo = loginInfo;
+		
 		initWidget(uiBinder.createAndBindUi(this));
 
 		this.gallery = gallery;
@@ -73,8 +76,9 @@ public class PhotoShare extends Composite {
 
 									@Override
 									public void onSuccess(UploadedImage result) {
-										uploadedImage.setUrl(result
-												.getServingUrl());
+										
+										ImageOverlay overlay = new ImageOverlay(result, loginInfo);
+
 										gallery.refreshGallery();										
 										// TODO: Add something here that says,
 										// hey, upload succeeded
@@ -82,7 +86,7 @@ public class PhotoShare extends Composite {
 										final PopupPanel imagePopup = new PopupPanel(
 												true);
 										imagePopup.setAnimationEnabled(true);
-										imagePopup.setWidget(uploadedImage);
+										imagePopup.setWidget(overlay);
 										imagePopup.setGlassEnabled(true);
 										imagePopup.setAutoHideEnabled(true);
 
