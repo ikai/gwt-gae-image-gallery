@@ -7,6 +7,8 @@ import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.ikai.photosharing.client.services.LoginService;
+import com.ikai.photosharing.client.services.LoginServiceAsync;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.

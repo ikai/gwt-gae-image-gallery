@@ -19,6 +19,8 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.ikai.photosharing.client.services.UserImageService;
+import com.ikai.photosharing.client.services.UserImageServiceAsync;
 import com.ikai.photosharing.shared.UploadedImage;
 
 public class PhotoGallery extends Composite {

@@ -5,7 +5,7 @@ import java.util.List;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-import com.ikai.photosharing.client.UserImageService;
+import com.ikai.photosharing.client.services.UserImageService;
 import com.ikai.photosharing.shared.UploadedImage;
 
 @SuppressWarnings("serial")
