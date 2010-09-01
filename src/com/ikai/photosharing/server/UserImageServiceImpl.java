@@ -33,4 +33,10 @@ public class UserImageServiceImpl extends RemoteServiceServlet implements
 		return images;
 	}
 
+	@Override
+	public void deleteImage(String key) {
+		UploadedImageDao dao = new UploadedImageDao();
+		dao.delete(key);
+	}
+
 }

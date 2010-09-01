@@ -79,7 +79,7 @@ public class PhotoShare extends Composite {
 									@Override
 									public void onSuccess(UploadedImage result) {
 										
-										ImageOverlay overlay = new ImageOverlay(result, loginInfo);
+										ImageOverlay overlay = new ImageOverlay(result, loginInfo, gallery);
 
 										gallery.refreshGallery();										
 										// TODO: Add something here that says,

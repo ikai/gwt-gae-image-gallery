@@ -48,6 +48,11 @@ public class UploadedImageDao {
 		}
 		return results;
 	}
+	
+	public void delete(String encodedKey) {
+		Key key = KeyFactory.stringToKey(encodedKey);
+		datastore.delete(key);
+	}
 
 	private UploadedImage fromEntity(Entity result) {
 		UploadedImage image = new UploadedImage();
@@ -64,5 +69,7 @@ public class UploadedImageDao {
 
 		return image;
 	}
+	
+	
 
 }

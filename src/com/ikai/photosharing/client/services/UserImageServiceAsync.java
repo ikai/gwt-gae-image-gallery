@@ -13,4 +13,7 @@ public interface UserImageServiceAsync {
 
 	void getRecentlyUploaded(AsyncCallback<List<UploadedImage>> callback);
 
+	void deleteImage(String key, AsyncCallback<Void> callback);
+
+
 }

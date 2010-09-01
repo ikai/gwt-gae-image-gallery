@@ -12,5 +12,6 @@ public interface UserImageService extends RemoteService  {
 	public String getBlobstoreUploadUrl();
 	public UploadedImage get(String key);
 	public List<UploadedImage> getRecentlyUploaded();
+	public void deleteImage(String key);
 
 }
