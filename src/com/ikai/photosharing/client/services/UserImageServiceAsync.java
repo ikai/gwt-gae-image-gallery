@@ -19,5 +19,7 @@ public interface UserImageServiceAsync {
 	void tagImage(Tag tag,
 			AsyncCallback<String> callback);
 
+	void getTagsForImage(UploadedImage image, AsyncCallback<List<Tag>> callback);
+
 
 }

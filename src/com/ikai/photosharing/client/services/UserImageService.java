@@ -15,5 +15,6 @@ public interface UserImageService extends RemoteService  {
 	public List<UploadedImage> getRecentlyUploaded();
 	public void deleteImage(String key);
 	public String tagImage(Tag tag);
+	public List<Tag> getTagsForImage(UploadedImage image);
 
 }

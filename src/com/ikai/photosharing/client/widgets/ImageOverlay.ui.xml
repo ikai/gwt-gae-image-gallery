@@ -10,5 +10,7 @@
         <g:Image ui:field="image" />
         <g:Label ui:field="timestamp" />        
         <g:Button styleName="{style.important}" ui:field="deleteButton" />	
+        <g:VerticalPanel ui:field="tagPanel">
+        </g:VerticalPanel>
 	</g:VerticalPanel>
 </ui:UiBinder> 

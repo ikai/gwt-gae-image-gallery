@@ -1,5 +1,7 @@
 package com.ikai.photosharing.client.widgets;
 
+import java.util.List;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -15,6 +17,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
@@ -40,7 +43,7 @@ public class ImageOverlay extends Composite {
 	private static ImageOverlayUiBinder uiBinder = GWT
 			.create(ImageOverlayUiBinder.class);
 
-	UserImageServiceAsync imageService = GWT.create(UserImageService.class);
+	UserImageServiceAsync imageService = GWT.create(UserImageService.class);	
 
 	interface ImageOverlayUiBinder extends UiBinder<Widget, ImageOverlay> {
 	}
@@ -53,6 +56,9 @@ public class ImageOverlay extends Composite {
 
 	@UiField
 	Label timestamp;
+	
+	@UiField
+	VerticalPanel tagPanel;
 
 	protected UploadedImage uploadedImage;
 	LoginInfo loginInfo;
@@ -76,7 +82,26 @@ public class ImageOverlay extends Composite {
 		} else {
 			deleteButton.setVisible(false);
 		}
+		
+		// Now let's fetch the tags
+		imageService.getTagsForImage(uploadedImage, new AsyncCallback<List<Tag>>() {
 
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(List<Tag> result) {
+				// TODO Auto-generated method stub
+				for(Tag tag : result) {
+					tagPanel.add(new HTMLPanel(tag.getBody()));					
+				}
+
+			}
+		});
+		
 	}
 
 	@UiHandler("image")

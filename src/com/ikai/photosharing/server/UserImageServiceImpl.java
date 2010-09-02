@@ -63,4 +63,11 @@ public class UserImageServiceImpl extends RemoteServiceServlet implements
 		return key;
 	}
 
+	@Override
+	public List<Tag> getTagsForImage(UploadedImage image) {
+		TagDao dao = new TagDao();
+		List<Tag> tags = dao.getForImage(image);
+		return tags;
+	}
+
 }
