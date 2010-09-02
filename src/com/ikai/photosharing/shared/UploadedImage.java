@@ -2,6 +2,7 @@ package com.ikai.photosharing.shared;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @SuppressWarnings("serial")
 public class UploadedImage implements Serializable {
@@ -14,6 +15,8 @@ public class UploadedImage implements Serializable {
 	String servingUrl;
 	Date createdAt;
 	String ownerId; // Refers to the User that uploaded this
+
+	List<Tag> tags;
 
 	public String getKey() {
 		return key;
@@ -46,7 +49,13 @@ public class UploadedImage implements Serializable {
 	public void setOwnerId(String ownerId) {
 		this.ownerId = ownerId;
 	}
-	
-	
+
+	public List<Tag> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<Tag> tags) {
+		this.tags = tags;
+	}
 
 }

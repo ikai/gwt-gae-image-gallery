@@ -1,11 +1,19 @@
 package com.ikai.photosharing.server;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.ikai.photosharing.shared.Tag;
+import com.ikai.photosharing.shared.UploadedImage;
 
 public class TagDao {
 
@@ -35,6 +43,26 @@ public class TagDao {
 		Key key = datastore.put(tagEntity);
 		String encodedKey = KeyFactory.keyToString(key);
 		return encodedKey;
+	}
+	
+	public List<Tag> getForImage(UploadedImage image) {
+		Query query = new Query(Tag.class.getSimpleName());
+		query.addFilter("photoKey", FilterOperator.EQUAL, image.getKey());
+		
+		List<Tag> results = new ArrayList<Tag>();
+		
+		for(Entity entity : datastore.prepare(query).asIterable(FetchOptions.Builder.withDefaults())) {
+			Tag tag = new Tag();
+			tag.setPhotoKey((String) entity.getProperty("photoKey"));
+			tag.setBody((String) entity.getProperty("body"));
+			tag.setCreatedAt((Date) entity.getProperty("createdAt"));
+			tag.setTaggerId((String) entity.getProperty("taggerId"));
+			tag.setX((Long) entity.getProperty("x"));
+			tag.setY((Long) entity.getProperty("y"));
+			results.add(tag);
+		}
+		
+		return results;
 	}
 	
 }
