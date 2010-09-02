@@ -117,6 +117,11 @@ public class ImageOverlay extends Composite {
 
 	}
 
+	/**
+	 * @author Ikai Lan
+	 *
+	 *	 This is the dialog box to ask the user to tag the image
+	 */
 	private class TagDialog extends DialogBox {
 		
 		private TextBox textBox;
@@ -125,6 +130,8 @@ public class ImageOverlay extends Composite {
 
 			// Set the dialog box's caption.
 			setText("Tagging X: " + x + " Y: " + y);
+			
+			setAutoHideEnabled(true);
 
 			int dialogX = image.getAbsoluteLeft() + x;
 			int dialogY = image.getAbsoluteTop() + y;
