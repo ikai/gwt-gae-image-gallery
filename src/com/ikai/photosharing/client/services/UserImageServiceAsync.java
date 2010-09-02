@@ -15,5 +15,8 @@ public interface UserImageServiceAsync {
 
 	void deleteImage(String key, AsyncCallback<Void> callback);
 
+	void tagImage(UploadedImage image, int x, int y, String text,
+			AsyncCallback<Void> callback);
+
 
 }

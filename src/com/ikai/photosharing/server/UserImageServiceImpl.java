@@ -47,4 +47,10 @@ public class UserImageServiceImpl extends RemoteServiceServlet implements
 		}
 	}
 
+	@Override
+	public void tagImage(UploadedImage image, int x, int y, String text) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

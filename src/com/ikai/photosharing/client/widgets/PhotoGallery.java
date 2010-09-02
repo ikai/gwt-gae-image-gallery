@@ -111,12 +111,11 @@ public class PhotoGallery extends Composite {
 			}
 		});
 
-		final PhotoGallery gallery = this;
 		imageWidget.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				ImageOverlay imageOverlay = new ImageOverlay(image, parent.getLoginInfo(), gallery);
+				ImageOverlay imageOverlay = new ImageOverlay(image, parent.getLoginInfo(), PhotoGallery.this);
 				
 				final PopupPanel imagePopup = new PopupPanel(true);
 				imagePopup.setAnimationEnabled(true);
