@@ -49,17 +49,14 @@ public class UserImageServiceImpl extends RemoteServiceServlet implements
 		}
 	}
 
-	@Override
-	public String tagImage(UploadedImage image, int x, int y, String text) {
+	public String tagImage(Tag tag) {
 		UserService userService = UserServiceFactory.getUserService();
 		User user = userService.getCurrentUser();
 		TagDao dao = new TagDao();
+
+		// TODO: Do validation here of x, y, ImageId
 		
-		Tag tag = new Tag();
 		tag.setTaggerId(user.getUserId());
-		tag.setBody(text);
-		tag.setX(x);
-		tag.setY(y);
 		tag.setCreatedAt(new Date());
 		
 		String key = dao.put(tag);

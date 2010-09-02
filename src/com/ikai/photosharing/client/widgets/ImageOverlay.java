@@ -139,10 +139,12 @@ public class ImageOverlay extends Composite {
 			// DialogBox is a SimplePanel, so you have to set its widget
 			// property to
 			// whatever you want its contents to be.
-			Button ok = new Button("OK");
+			Button ok = new Button("Tag");
 			ok.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
 					// TODO: Send tag to the server
+					
+					
 					TagDialog.this.hide();
 				}
 			});
