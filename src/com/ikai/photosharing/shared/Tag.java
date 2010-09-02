@@ -3,12 +3,12 @@ package com.ikai.photosharing.shared;
 import java.io.Serializable;
 import java.util.Date;
 
-/** 
+/**
  * 
  * A single Tag for a given Photo.
  * 
  * @author Ikai Lan
- *
+ * 
  */
 @SuppressWarnings("serial")
 public class Tag implements Serializable {
@@ -23,6 +23,9 @@ public class Tag implements Serializable {
 	String body;
 
 	Date createdAt;
+
+	Integer x;
+	Integer y;
 
 	public String getPhotoKey() {
 		return photoKey;
@@ -54,6 +57,22 @@ public class Tag implements Serializable {
 
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public void setX(Integer x) {
+		this.x = x;
+	}
+
+	public Integer getY() {
+		return y;
+	}
+
+	public void setY(Integer y) {
+		this.y = y;
 	}
 
 }

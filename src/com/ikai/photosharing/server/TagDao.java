@@ -27,8 +27,10 @@ public class TagDao {
 		tagEntity.setProperty("createdAt", tag.getCreatedAt());
 		tagEntity.setProperty("taggerId", tag.getTaggerId());
 		tagEntity.setProperty("photoKey", tag.getPhotoKey());
-		tagEntity.setUnindexedProperty("body", tag.getBody());
 		
+		tagEntity.setUnindexedProperty("body", tag.getBody());
+		tagEntity.setUnindexedProperty("x", tag.getX());
+		tagEntity.setUnindexedProperty("y", tag.getY());
 		
 		Key key = datastore.put(tagEntity);
 		String encodedKey = KeyFactory.keyToString(key);

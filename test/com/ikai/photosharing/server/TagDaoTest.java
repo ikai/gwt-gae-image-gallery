@@ -48,6 +48,9 @@ public class TagDaoTest {
 		tag.setPhotoKey("photoKey");
 		tag.setTaggerId("1");
 		
+		tag.setX(100);
+		tag.setY(100);
+		
 		String key = dao.put(tag);
 		
 		Key rawKey = null;
@@ -65,6 +68,10 @@ public class TagDaoTest {
 			assertEquals("createdAt not set", tag.getCreatedAt(), (Date) entity.getProperty("createdAt"));
 			assertEquals("taggerId not set", tag.getTaggerId(), (String) entity.getProperty("taggerId"));			
 			assertEquals("photoKey not set", tag.getPhotoKey(), (String) entity.getProperty("photoKey"));
+			
+			assertEquals("x not set", new Long(100l), (Long) entity.getProperty("x"));
+			assertEquals("y not set", new Long(100l), (Long) entity.getProperty("y"));
+			
 		} catch (EntityNotFoundException e) {
 			Assert.fail("Entity not saved correctly");
 		}

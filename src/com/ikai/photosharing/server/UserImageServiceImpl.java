@@ -49,6 +49,10 @@ public class UserImageServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public void tagImage(UploadedImage image, int x, int y, String text) {
+		UserService userService = UserServiceFactory.getUserService();
+		User user = userService.getCurrentUser();
+		TagDao dao = new TagDao();
+		
 		// TODO Auto-generated method stub
 		
 	}
