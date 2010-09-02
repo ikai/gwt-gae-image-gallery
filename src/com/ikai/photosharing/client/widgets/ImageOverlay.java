@@ -4,6 +4,9 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -20,6 +23,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.ikai.photosharing.client.services.UserImageService;
 import com.ikai.photosharing.client.services.UserImageServiceAsync;
 import com.ikai.photosharing.shared.LoginInfo;
+import com.ikai.photosharing.shared.Tag;
 import com.ikai.photosharing.shared.UploadedImage;
 
 /**
@@ -50,7 +54,7 @@ public class ImageOverlay extends Composite {
 	@UiField
 	Label timestamp;
 
-	UploadedImage uploadedImage;
+	protected UploadedImage uploadedImage;
 	LoginInfo loginInfo;
 	PhotoGallery gallery;
 
@@ -82,7 +86,7 @@ public class ImageOverlay extends Composite {
 		int y = e.getRelativeY(imageElement);
 		// Window.alert("X: " + x + " Y: "+ y);
 		TagDialog tagDialog = new TagDialog(image, x, y);
-		tagDialog.show();
+		tagDialog.showAndFocus();
 
 	}
 
@@ -113,10 +117,12 @@ public class ImageOverlay extends Composite {
 
 	}
 
-	private static class TagDialog extends DialogBox {
+	private class TagDialog extends DialogBox {
+		
+		private TextBox textBox;
 
-		public TagDialog(Image image, int x, int y) {
-			
+		public TagDialog(Image image, final int x, final int y) {
+
 			// Set the dialog box's caption.
 			setText("Tagging X: " + x + " Y: " + y);
 
@@ -125,33 +131,62 @@ public class ImageOverlay extends Composite {
 
 			setPopupPosition(dialogX, dialogY);
 
-			// Enable animation.
-			setAnimationEnabled(true);
-
-			// Enable glass background.
-			setGlassEnabled(true);
-
 			VerticalPanel tagPanel = new VerticalPanel();
 
-			TextBox textBox = new TextBox();
+			textBox = new TextBox();
 			tagPanel.add(textBox);
 
-			// DialogBox is a SimplePanel, so you have to set its widget
-			// property to
-			// whatever you want its contents to be.
+			textBox.addKeyPressHandler(new KeyPressHandler() {
+
+				@Override
+				public void onKeyPress(KeyPressEvent event) {
+					if (event.getCharCode() == KeyCodes.KEY_ENTER) {
+						saveTag(x, y, textBox);
+					}
+
+				}
+			});
+
 			Button ok = new Button("Tag");
 			ok.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
-					// TODO: Send tag to the server
-					
-					
-					TagDialog.this.hide();
+					saveTag(x, y, textBox);
 				}
 			});
 
 			tagPanel.add(ok);
 
 			setWidget(tagPanel);
+			
+		}
+		
+		public void showAndFocus() {
+			show();
+			textBox.setFocus(true);
+		}
+
+		private void saveTag(final int x, final int y, final TextBox textBox) {
+			Tag tag = new Tag();
+
+			// TODO: Change this to also pass the Image
+			tag.setPhotoKey(uploadedImage.getKey());
+			tag.setBody(textBox.getValue());
+			tag.setX(x);
+			tag.setY(y);
+
+			imageService.tagImage(tag, new AsyncCallback<String>() {
+
+				@Override
+				public void onFailure(Throwable caught) {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void onSuccess(String result) {
+					TagDialog.this.hide();
+				}
+			});
 		}
 	}
 
