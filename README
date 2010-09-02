@@ -4,3 +4,10 @@ a basic image gallery application. Read more about this API here:
 http://code.google.com/appengine/docs/java/javadoc/com/google/appengine/api/images/ImagesService.html#getServingUrl(com.google.appengine.api.blobstore.BlobKey, int, boolean)
 
 Note that to deploy this, you will require your GAE application to be billing-enabled. This app was built using GWT 2.0.4 and GAE SDK 1.3.7.
+
+Testing
+--------
+
+To test this application, you will need to add the requisite JARs to your build path. See this page for the required classes:
+
+http://code.google.com/appengine/docs/java/tools/localunittesting.html
