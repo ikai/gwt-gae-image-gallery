@@ -117,7 +117,8 @@ public class PhotoGallery extends Composite implements GalleryUpdatedEventHandle
 
 			@Override
 			public void onClick(ClickEvent event) {
-				ImageOverlay imageOverlay = new ImageOverlay(image, parent.getLoginInfo(), PhotoGallery.this);
+				ImageOverlay imageOverlay = new ImageOverlay(image, parent.getLoginInfo());
+				imageOverlay.addGalleryUpdatedEventHandler(PhotoGallery.this);
 				
 				final PopupPanel imagePopup = new PopupPanel(true);
 				imagePopup.setAnimationEnabled(true);

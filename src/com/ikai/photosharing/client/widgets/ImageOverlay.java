@@ -10,6 +10,10 @@ import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.dom.client.MouseDownEvent;
+import com.google.gwt.event.shared.GwtEvent;
+import com.google.gwt.event.shared.HandlerManager;
+import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.event.shared.HasHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -23,6 +27,8 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.ikai.photosharing.client.events.GalleryUpdatedEvent;
+import com.ikai.photosharing.client.events.GalleryUpdatedEventHandler;
 import com.ikai.photosharing.client.services.UserImageService;
 import com.ikai.photosharing.client.services.UserImageServiceAsync;
 import com.ikai.photosharing.shared.LoginInfo;
@@ -38,12 +44,14 @@ import com.ikai.photosharing.shared.UploadedImage;
  * @author Ikai Lan
  * 
  */
-public class ImageOverlay extends Composite {
+public class ImageOverlay extends Composite implements HasHandlers {
 
 	private static ImageOverlayUiBinder uiBinder = GWT
 			.create(ImageOverlayUiBinder.class);
 
-	UserImageServiceAsync imageService = GWT.create(UserImageService.class);	
+	UserImageServiceAsync imageService = GWT.create(UserImageService.class);
+
+	private HandlerManager handlerManager;
 
 	interface ImageOverlayUiBinder extends UiBinder<Widget, ImageOverlay> {
 	}
@@ -56,17 +64,16 @@ public class ImageOverlay extends Composite {
 
 	@UiField
 	Label timestamp;
-	
+
 	@UiField
 	VerticalPanel tagPanel;
 
 	protected UploadedImage uploadedImage;
 	LoginInfo loginInfo;
-	PhotoGallery gallery;
 
-	public ImageOverlay(UploadedImage uploadedImage, LoginInfo loginInfo,
-			PhotoGallery gallery) {
-		this.gallery = gallery;
+	public ImageOverlay(UploadedImage uploadedImage, LoginInfo loginInfo) {
+		handlerManager = new HandlerManager(this);
+
 		this.uploadedImage = uploadedImage;
 		this.loginInfo = loginInfo;
 
@@ -82,26 +89,27 @@ public class ImageOverlay extends Composite {
 		} else {
 			deleteButton.setVisible(false);
 		}
-		
+
 		// Now let's fetch the tags
-		imageService.getTagsForImage(uploadedImage, new AsyncCallback<List<Tag>>() {
+		imageService.getTagsForImage(uploadedImage,
+				new AsyncCallback<List<Tag>>() {
 
-			@Override
-			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-				
-			}
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
 
-			@Override
-			public void onSuccess(List<Tag> result) {
-				// TODO Auto-generated method stub
-				for(Tag tag : result) {
-					tagPanel.add(new HTMLPanel(tag.getBody()));					
-				}
+					}
 
-			}
-		});
-		
+					@Override
+					public void onSuccess(List<Tag> result) {
+						// TODO Auto-generated method stub
+						for (Tag tag : result) {
+							tagPanel.add(new HTMLPanel(tag.getBody()));
+						}
+
+					}
+				});
+
 	}
 
 	@UiHandler("image")
@@ -129,7 +137,8 @@ public class ImageOverlay extends Composite {
 
 					@Override
 					public void onSuccess(Void result) {
-						gallery.refreshGallery();
+						GalleryUpdatedEvent event = new GalleryUpdatedEvent();
+						fireEvent(event);
 						overlay.removeFromParent();
 					}
 
@@ -144,18 +153,18 @@ public class ImageOverlay extends Composite {
 
 	/**
 	 * @author Ikai Lan
-	 *
-	 *	 This is the dialog box to ask the user to tag the image
+	 * 
+	 *         This is the dialog box to ask the user to tag the image
 	 */
 	private class TagDialog extends DialogBox {
-		
+
 		private TextBox textBox;
 
 		public TagDialog(Image image, final int x, final int y) {
 
 			// Set the dialog box's caption.
 			setText("Tagging X: " + x + " Y: " + y);
-			
+
 			setAutoHideEnabled(true);
 
 			int dialogX = image.getAbsoluteLeft() + x;
@@ -189,9 +198,9 @@ public class ImageOverlay extends Composite {
 			tagPanel.add(ok);
 
 			setWidget(tagPanel);
-			
+
 		}
-		
+
 		public void showAndFocus() {
 			show();
 			textBox.setFocus(true);
@@ -220,6 +229,16 @@ public class ImageOverlay extends Composite {
 				}
 			});
 		}
+	}
+
+	@Override
+	public void fireEvent(GwtEvent<?> event) {
+		handlerManager.fireEvent(event);
+	}
+
+	public HandlerRegistration addGalleryUpdatedEventHandler(
+			GalleryUpdatedEventHandler handler) {
+		return handlerManager.addHandler(GalleryUpdatedEvent.TYPE, handler);
 	}
 
 }

@@ -50,7 +50,6 @@ public class PhotoShare extends Composite implements HasHandlers {
 	Image uploadedImage;
 
 	LoginInfo loginInfo;
-	PhotoGallery gallery;
 
 	public PhotoShare(final LoginInfo loginInfo) {
 		handlerManager = new HandlerManager(this);
@@ -59,7 +58,6 @@ public class PhotoShare extends Composite implements HasHandlers {
 
 		initWidget(uiBinder.createAndBindUi(this));
 
-		this.gallery = gallery;
 		uploadButton.setText("Upload");
 		uploadButton.setText("Loading...");
 		uploadButton.setEnabled(false);
@@ -91,7 +89,7 @@ public class PhotoShare extends Composite implements HasHandlers {
 									public void onSuccess(UploadedImage result) {
 
 										ImageOverlay overlay = new ImageOverlay(
-												result, loginInfo, gallery);
+												result, loginInfo);
 										GalleryUpdatedEvent event = new GalleryUpdatedEvent();
 										fireEvent(event);
 
