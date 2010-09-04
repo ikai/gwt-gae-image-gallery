@@ -1,0 +1,16 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		.important {
+			font-weight: bold;
+		}
+	</ui:style>
+	<g:VerticalPanel>
+        <g:Image ui:field="image" />
+        <g:Label ui:field="timestamp" />        
+        <g:Button styleName="{style.important}" ui:field="deleteButton" />	
+        <g:VerticalPanel ui:field="tagPanel">
+        </g:VerticalPanel>
+	</g:VerticalPanel>
+</ui:UiBinder> 

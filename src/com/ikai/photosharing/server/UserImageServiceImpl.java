@@ -1,5 +1,6 @@
 package com.ikai.photosharing.server;
 
+import java.util.Date;
 import java.util.List;
 
 import com.google.appengine.api.blobstore.BlobstoreService;
@@ -9,6 +10,7 @@ import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.ikai.photosharing.client.services.UserImageService;
+import com.ikai.photosharing.shared.Tag;
 import com.ikai.photosharing.shared.UploadedImage;
 
 @SuppressWarnings("serial")
@@ -42,9 +44,30 @@ public class UserImageServiceImpl extends RemoteServiceServlet implements
 		User user = userService.getCurrentUser();
 		UploadedImageDao dao = new UploadedImageDao();
 		UploadedImage image = dao.get(key);
-		if(image.getOwnerId() == user.getUserId()) {
+		if(image.getOwnerId().equals(user.getUserId())) {
 			dao.delete(key);
 		}
+	}
+
+	public String tagImage(Tag tag) {
+		UserService userService = UserServiceFactory.getUserService();
+		User user = userService.getCurrentUser();
+		TagDao dao = new TagDao();
+
+		// TODO: Do validation here of x, y, ImageId
+		
+		tag.setTaggerId(user.getUserId());
+		tag.setCreatedAt(new Date());
+		
+		String key = dao.put(tag);
+		return key;
+	}
+
+	@Override
+	public List<Tag> getTagsForImage(UploadedImage image) {
+		TagDao dao = new TagDao();
+		List<Tag> tags = dao.getForImage(image);
+		return tags;
 	}
 
 }
