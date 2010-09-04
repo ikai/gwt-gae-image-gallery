@@ -42,7 +42,11 @@ public class Main implements EntryPoint {
 					public void onSuccess(LoginInfo result) {
 						loginInfo = result;
 						if (loginInfo.isLoggedIn()) {
-							uploadWidget = new PhotoShare(galleryWidget, result);
+							uploadWidget = new PhotoShare(result);
+							
+							// Bind it to event so uploadWidget can refresh the gallery
+							uploadWidget.addGalleryUpdatedEventHandler(galleryWidget);
+							
 							RootPanel.get("photoSharing").add(uploadWidget);
 						} else {
 							loadLogin();

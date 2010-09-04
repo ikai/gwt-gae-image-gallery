@@ -2,7 +2,9 @@ package com.ikai.photosharing.client.widgets;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerManager;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.event.shared.HasHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -16,6 +18,8 @@ import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteEvent;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.ikai.photosharing.client.events.GalleryUpdatedEvent;
+import com.ikai.photosharing.client.events.GalleryUpdatedEventHandler;
 import com.ikai.photosharing.client.services.UserImageService;
 import com.ikai.photosharing.client.services.UserImageServiceAsync;
 import com.ikai.photosharing.shared.LoginInfo;
@@ -28,8 +32,8 @@ public class PhotoShare extends Composite implements HasHandlers {
 
 	UserImageServiceAsync userImageService = GWT.create(UserImageService.class);
 
-    private HandlerManager handlerManager;
-		
+	private HandlerManager handlerManager;
+
 	interface PhotoShareUiBinder extends UiBinder<Widget, PhotoShare> {
 	}
 
@@ -48,11 +52,11 @@ public class PhotoShare extends Composite implements HasHandlers {
 	LoginInfo loginInfo;
 	PhotoGallery gallery;
 
-	public PhotoShare(final PhotoGallery gallery, final LoginInfo loginInfo) {
-        handlerManager = new HandlerManager(this);
-				
+	public PhotoShare(final LoginInfo loginInfo) {
+		handlerManager = new HandlerManager(this);
+
 		this.loginInfo = loginInfo;
-		
+
 		initWidget(uiBinder.createAndBindUi(this));
 
 		this.gallery = gallery;
@@ -85,10 +89,12 @@ public class PhotoShare extends Composite implements HasHandlers {
 
 									@Override
 									public void onSuccess(UploadedImage result) {
-										
-										ImageOverlay overlay = new ImageOverlay(result, loginInfo, gallery);
 
-										gallery.refreshGallery();										
+										ImageOverlay overlay = new ImageOverlay(
+												result, loginInfo, gallery);
+										GalleryUpdatedEvent event = new GalleryUpdatedEvent();
+										fireEvent(event);
+
 										// TODO: Add something here that says,
 										// hey, upload succeeded
 
@@ -135,4 +141,12 @@ public class PhotoShare extends Composite implements HasHandlers {
 		uploadForm.submit();
 	}
 
+	@Override
+	public void fireEvent(GwtEvent<?> event) {
+		handlerManager.fireEvent(event);
+	}
+	
+	public HandlerRegistration addGalleryUpdatedEventHandler(GalleryUpdatedEventHandler handler) {
+		return handlerManager.addHandler(GalleryUpdatedEvent.TYPE, handler);
+	}
 }

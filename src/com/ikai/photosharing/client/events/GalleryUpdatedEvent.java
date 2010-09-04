@@ -8,14 +8,12 @@ public class GalleryUpdatedEvent extends GwtEvent<GalleryUpdatedEventHandler> {
 
 	@Override
 	public Type<GalleryUpdatedEventHandler> getAssociatedType() {
-		// TODO Auto-generated method stub
-		return null;
+		return TYPE;
 	}
 
 	@Override
 	protected void dispatch(GalleryUpdatedEventHandler handler) {
-		// TODO Auto-generated method stub
-		
+		handler.onGalleryUpdated(this);
 	}
 
 }
