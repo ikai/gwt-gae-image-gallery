@@ -19,11 +19,13 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.ikai.photosharing.client.events.GalleryUpdatedEvent;
+import com.ikai.photosharing.client.events.GalleryUpdatedEventHandler;
 import com.ikai.photosharing.client.services.UserImageService;
 import com.ikai.photosharing.client.services.UserImageServiceAsync;
 import com.ikai.photosharing.shared.UploadedImage;
 
-public class PhotoGallery extends Composite {
+public class PhotoGallery extends Composite implements GalleryUpdatedEventHandler {
 
 	private static PhotoGalleryUiBinder uiBinder = GWT
 			.create(PhotoGalleryUiBinder.class);
@@ -128,6 +130,11 @@ public class PhotoGallery extends Composite {
 		});
 
 		return imageWidget;
+	}
+
+	@Override
+	public void onGalleryUpdated(GalleryUpdatedEvent event) {
+		refreshGallery();
 	}
 
 }

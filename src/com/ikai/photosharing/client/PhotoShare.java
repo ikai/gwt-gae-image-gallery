@@ -2,6 +2,8 @@ package com.ikai.photosharing.client;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.shared.HandlerManager;
+import com.google.gwt.event.shared.HasHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -10,21 +12,23 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FileUpload;
 import com.google.gwt.user.client.ui.FormPanel;
+import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteEvent;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteEvent;
 import com.ikai.photosharing.client.services.UserImageService;
 import com.ikai.photosharing.client.services.UserImageServiceAsync;
 import com.ikai.photosharing.shared.UploadedImage;
 
-public class PhotoShare extends Composite {
+public class PhotoShare extends Composite implements HasHandlers {
 
 	private static PhotoShareUiBinder uiBinder = GWT
 			.create(PhotoShareUiBinder.class);
 
 	UserImageServiceAsync userImageService = GWT.create(UserImageService.class);
 
+    private HandlerManager handlerManager;
+		
 	interface PhotoShareUiBinder extends UiBinder<Widget, PhotoShare> {
 	}
 
@@ -44,6 +48,8 @@ public class PhotoShare extends Composite {
 	PhotoGallery gallery;
 
 	public PhotoShare(final PhotoGallery gallery, final LoginInfo loginInfo) {
+        handlerManager = new HandlerManager(this);
+				
 		this.loginInfo = loginInfo;
 		
 		initWidget(uiBinder.createAndBindUi(this));
