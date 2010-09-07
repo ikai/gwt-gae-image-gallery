@@ -10,7 +10,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.ikai.photosharing.client.services.LoginService;
 import com.ikai.photosharing.client.services.LoginServiceAsync;
 import com.ikai.photosharing.client.widgets.PhotoGallery;
-import com.ikai.photosharing.client.widgets.PhotoShare;
+import com.ikai.photosharing.client.widgets.UploadPhoto;
 import com.ikai.photosharing.shared.LoginInfo;
 
 /**
@@ -28,7 +28,7 @@ public class Main implements EntryPoint {
 	private Anchor signInLink = new Anchor("Sign In");
 
 	private PhotoGallery galleryWidget;
-	private PhotoShare uploadWidget;
+	private UploadPhoto uploadWidget;
 
 	public void onModuleLoad() {
 		galleryWidget = new PhotoGallery(this);
@@ -42,7 +42,7 @@ public class Main implements EntryPoint {
 					public void onSuccess(LoginInfo result) {
 						loginInfo = result;
 						if (loginInfo.isLoggedIn()) {
-							uploadWidget = new PhotoShare(result);
+							uploadWidget = new UploadPhoto(result);
 							
 							// Bind it to event so uploadWidget can refresh the gallery
 							uploadWidget.addGalleryUpdatedEventHandler(galleryWidget);

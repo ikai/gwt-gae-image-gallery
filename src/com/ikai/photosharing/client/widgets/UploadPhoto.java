@@ -25,16 +25,16 @@ import com.ikai.photosharing.client.services.UserImageServiceAsync;
 import com.ikai.photosharing.shared.LoginInfo;
 import com.ikai.photosharing.shared.UploadedImage;
 
-public class PhotoShare extends Composite implements HasHandlers {
+public class UploadPhoto extends Composite implements HasHandlers {
 
-	private static PhotoShareUiBinder uiBinder = GWT
-			.create(PhotoShareUiBinder.class);
+	private static UploadPhotoUiBinder uiBinder = GWT
+			.create(UploadPhotoUiBinder.class);
 
 	UserImageServiceAsync userImageService = GWT.create(UserImageService.class);
 
 	private HandlerManager handlerManager;
 
-	interface PhotoShareUiBinder extends UiBinder<Widget, PhotoShare> {
+	interface UploadPhotoUiBinder extends UiBinder<Widget, UploadPhoto> {
 	}
 
 	@UiField
@@ -51,7 +51,7 @@ public class PhotoShare extends Composite implements HasHandlers {
 
 	LoginInfo loginInfo;
 
-	public PhotoShare(final LoginInfo loginInfo) {
+	public UploadPhoto(final LoginInfo loginInfo) {
 		handlerManager = new HandlerManager(this);
 
 		this.loginInfo = loginInfo;
