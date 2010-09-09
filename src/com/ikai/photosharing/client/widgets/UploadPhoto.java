@@ -15,7 +15,6 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FileUpload;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteEvent;
-import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.ikai.photosharing.client.events.GalleryUpdatedEvent;
@@ -45,9 +44,6 @@ public class UploadPhoto extends Composite implements HasHandlers {
 
 	@UiField
 	FileUpload uploadField;
-
-	@UiField
-	Image uploadedImage;
 
 	LoginInfo loginInfo;
 
@@ -143,8 +139,9 @@ public class UploadPhoto extends Composite implements HasHandlers {
 	public void fireEvent(GwtEvent<?> event) {
 		handlerManager.fireEvent(event);
 	}
-	
-	public HandlerRegistration addGalleryUpdatedEventHandler(GalleryUpdatedEventHandler handler) {
+
+	public HandlerRegistration addGalleryUpdatedEventHandler(
+			GalleryUpdatedEventHandler handler) {
 		return handlerManager.addHandler(GalleryUpdatedEvent.TYPE, handler);
 	}
 }
